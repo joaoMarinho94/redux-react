@@ -1,9 +1,12 @@
 import api from '@/services/api';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { IProduct } from 'store/modules/cart/types';
+import { addProductToCart } from '../store/modules/cart/actions';
 
 export default function Catalog() {
+  const dispatch = useDispatch();
   const [catalog, setCatalog] = useState<IProduct[]>([]);
 
   useEffect(() => {
@@ -11,6 +14,13 @@ export default function Catalog() {
       setCatalog(data);
     });
   }, []);
+
+  const handleAddProductToCart = useCallback(
+    (product: IProduct) => {
+      dispatch(addProductToCart(product));
+    },
+    [dispatch]
+  );
 
   return (
     <main>
@@ -20,7 +30,9 @@ export default function Catalog() {
         <article key={product.id}>
           <strong>{product.title}</strong> {' - '}
           <span>{product.price}</span> {'  '}
-          <button type="button">Comprar</button>
+          <button onClick={() => handleAddProductToCart(product)} type="button">
+            Comprar
+          </button>
         </article>
       ))}
     </main>
