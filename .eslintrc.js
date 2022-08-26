@@ -16,6 +16,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
     'no-useless-constructor': 'off',
+    'default-param-last': 'off',
     'no-empty-function': 'off',
     'prettier/prettier': 'error',
     'no-unused-vars': 'warn',

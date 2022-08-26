@@ -1,12 +1,12 @@
 export interface IProduct {
   id: string;
   title: string;
-  price: string;
+  price: number;
 }
 
 export interface ICartItem {
   product: IProduct;
-  price: string;
+  quantity: number;
 }
 
 export interface ICartState {
