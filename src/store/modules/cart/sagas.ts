@@ -1,6 +1,9 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable indent */
+
 import { AxiosResponse } from 'axios';
 import {
- all, takeLatest, select, call, put 
+ all, takeLatest, select, call, put
 } from 'redux-saga/effects';
 import api from '@/services/api';
 import { IState } from '../../index';
@@ -10,6 +13,7 @@ import {
   addProductToCartRequest,
   addProductToCartSuccess
 } from './actions';
+import { ActionCardTypes } from './types';
 
 type CheckProductStockRequest = ReturnType<typeof addProductToCartRequest>;
 
@@ -39,5 +43,5 @@ function* checkProductStock({ payload }: CheckProductStockRequest) {
 }
 
 export default all([
-  takeLatest('ADD_PRODUCT_TO_CART_REQUEST', checkProductStock)
+  takeLatest(ActionCardTypes.addProductToCartRequest, checkProductStock)
 ]);

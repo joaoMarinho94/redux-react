@@ -1,5 +1,9 @@
+/* eslint-disable function-paren-newline */
+/* eslint-disable implicit-arrow-linebreak */
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { IState } from 'store';
+
 import { addProductToCartRequest } from '../store/modules/cart/actions';
 
 import { IProduct } from '../store/modules/cart/types';
@@ -10,6 +14,10 @@ interface CatalogItemProps {
 
 export default function CatalogItem({ product }: CatalogItemProps) {
   const dispatch = useDispatch();
+
+  const hasFailedStockCheck = useSelector<IState, boolean>((state) =>
+    state.cart.failedStockCheck.includes(product.id)
+  );
 
   const handleAddProductToCart = useCallback(() => {
     dispatch(addProductToCartRequest(product));
@@ -22,6 +30,9 @@ export default function CatalogItem({ product }: CatalogItemProps) {
       <button onClick={handleAddProductToCart} type="button">
         Comprar
       </button>
+      {hasFailedStockCheck && (
+        <span style={{ color: 'red' }}>Falta de estoque</span>
+      )}
     </article>
   );
 }
